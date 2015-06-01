@@ -11,6 +11,15 @@ If you have [NuGet](http://nuget.org) installed, the easiest way to get started 
 Install-Package Vertica.UCommerce.Utilities
 ```
 
+## Submitting a Pull Request
+
+1. Fork it.
+2. Create a branch (`git checkout -b my_branch`)
+3. Commit your changes (`git commit -am "Some good message"`)
+4. Push to the branch (`git push origin my_branch`)
+5. Open a [Pull Request][1]
+6. Enjoy a refreshing beverage of your favorite kind and wait for a legendary Hi5 from me!
+
 ## Using the Fluent Builders (useful for testing)
 
 These and more examples are also available as [stand-alone unit tests](https://github.com/vertica-as/ucommerce-utilities/tree/master/src/Tests/Testing/Builders):
