@@ -2,21 +2,18 @@
 
 <package>
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    <id>UCommerce.CoreLibraries</id>
+    <version>6.6.6.15140</version>
+    <title>UCommerce.CoreLibraries</title>
+    <authors>UCommerce</authors>
+    <owners>UCommerce</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/vertica-as/ucommerce-utilities</projectUrl>
     <iconUrl>http://www.ucommerce.net/images/logo-250x250.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>UCommerce CoreLibraries</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>UCommerce</tags>
   </metadata>
-  <files>
-    <file src="..\..\libs\UCommerce_6.6.6.15140\*.dll" target="lib\net451" />
-  </files>
 </package>
