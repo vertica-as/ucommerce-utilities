@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".deployment", ".deployment", "{CBC22A07-48EA-44EE-BDE0-A783DB7BCE86}"
 	ProjectSection(SolutionItems) = preProject
 		deployment\Package-Manager.ps1 = deployment\Package-Manager.ps1
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UCommerce.CoreLibraries", "UCommerce.CoreLibraries", "{60B5426C-C554-472C-8786-5322B9F834FF}"
