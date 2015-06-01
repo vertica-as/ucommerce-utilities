@@ -5,11 +5,9 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
 {
     public class PaymentBuilder : Builder<Payment>
     {
-        private readonly Payment _instance;
-
         public PaymentBuilder()
+            : base(new Payment())
         {
-            _instance = new Payment();
         }
 
         public PaymentBuilder TransactionId(string transactionId)
@@ -21,14 +19,9 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
         {
             if (change == null) throw new ArgumentNullException("change");
 
-            change(_instance);
+            change(Instance);
 
             return this;
-        }
-
-        public override Payment Build()
-        {
-            return _instance;
         }
     }
 }

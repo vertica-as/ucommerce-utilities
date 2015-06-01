@@ -5,12 +5,9 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
 {
     public class CountryBuilder : Builder<Country>
     {
-        private readonly Country _instance;
-
         public CountryBuilder(string culture = null)
+            : base(new Country())
         {
-            _instance = new Country();
-
             Change(x => x.Culture = culture);
         }
 
@@ -23,14 +20,14 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
         {
             if (change == null) throw new ArgumentNullException("change");
 
-            change(_instance);
+            change(Instance);
 
             return this;
         }
 
-        public override Country Build()
+        public CountryBuilder Name(string name)
         {
-            return _instance;
+            return Change(x => x.Name = name);
         }
     }
 }

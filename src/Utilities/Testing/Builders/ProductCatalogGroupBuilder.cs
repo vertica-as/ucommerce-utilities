@@ -5,34 +5,33 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
 {
     public class ProductCatalogGroupBuilder : Builder<ProductCatalogGroup>
     {
-        private readonly ProductCatalogGroup _instance;
-
         public ProductCatalogGroupBuilder()
+            : base(new ProductCatalogGroup())
         {
-            _instance = new ProductCatalogGroup();
         }
 
         public ProductCatalogGroupBuilder Change(Action<ProductCatalogGroup> change)
         {
             if (change == null) throw new ArgumentNullException("change");
 
-            change(_instance);
+            change(Instance);
 
             return this;
         }
 
-        public ProductCatalogGroupBuilder SetOrderNumberSerie(OrderNumberSerie orderNumberSerie)
+        public ProductCatalogGroupBuilder OrderNumberSerie(OrderNumberSerie orderNumberSerie)
         {
-            if (orderNumberSerie == null) throw new ArgumentNullException("orderNumberSerie");
-
-            _instance.OrderNumberSerie = orderNumberSerie;
-
-            return this;
+            return Change(x => x.OrderNumberSerie = orderNumberSerie);
         }
 
-        public override ProductCatalogGroup Build()
+        public ProductCatalogGroupBuilder OrderNumberSerie(string name, Action<OrderNumberSerieBuilder> orderNumberSerie = null)
         {
-            return _instance;
+            var builder = new OrderNumberSerieBuilder(name);
+
+            if (orderNumberSerie != null)
+                orderNumberSerie(builder);
+
+            return OrderNumberSerie(builder);
         }
     }
 }

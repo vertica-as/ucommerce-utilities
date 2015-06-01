@@ -5,11 +5,9 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
 {
     public class OrderStatusBuilder : Builder<OrderStatus>
     {
-        private readonly OrderStatus _instance;
-
         public OrderStatusBuilder()
+            : base(new OrderStatus())
         {
-            _instance = new OrderStatus();
         }
 
         public OrderStatusBuilder Name(string name)
@@ -21,14 +19,9 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
         {
             if (change == null) throw new ArgumentNullException("change");
 
-            change(_instance);
+            change(Instance);
 
             return this;
-        }
-
-        public override OrderStatus Build()
-        {
-            return _instance;
         }
     }
 }

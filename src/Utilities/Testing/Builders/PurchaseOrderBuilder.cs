@@ -5,11 +5,9 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
 {
     public class PurchaseOrderBuilder : Builder<PurchaseOrder>
     {
-        private readonly PurchaseOrder _purchaseOrder;
-
         public PurchaseOrderBuilder(OrderStatusBuilder status = null)
+            : base(new PurchaseOrder())
         {
-            _purchaseOrder = new PurchaseOrder();
             OrderStatus(status);
         }
 
@@ -32,7 +30,7 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
         {
             if (orderStatusAudit == null) throw new ArgumentNullException("orderStatusAudit");
 
-            _purchaseOrder.AddOrderStatusAudit(orderStatusAudit);
+            Instance.AddOrderStatusAudit(orderStatusAudit);
 
             return this;
         }
@@ -54,7 +52,7 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
 
         public PurchaseOrderBuilder OrderStatus(OrderStatus orderStatus)
         {
-            _purchaseOrder.OrderStatus = orderStatus;
+            Instance.OrderStatus = orderStatus;
 
             return this;
         }
@@ -73,7 +71,7 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
         {
             if (shipment == null) throw new ArgumentNullException("shipment");
 
-            _purchaseOrder.AddShipment(shipment);
+            Instance.AddShipment(shipment);
 
             return this;
         }
@@ -82,7 +80,7 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
         {
             if (orderLine == null) throw new ArgumentNullException("orderLine");
 
-            _purchaseOrder.AddOrderLine(orderLine);
+            Instance.AddOrderLine(orderLine);
 
             return this;
         }
@@ -92,17 +90,17 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
             return AddOrderLine(null, null, orderLine);
         }
 
-        public PurchaseOrderBuilder AddOrderLine(string sku, Action<OrderLineBuilder> orderLine)
+        public PurchaseOrderBuilder AddOrderLine(string sku, Action<OrderLineBuilder> orderLine = null)
         {
             return AddOrderLine(sku, null, orderLine);
         }
 
-        public PurchaseOrderBuilder AddOrderLine(string sku, string variantSku, Action<OrderLineBuilder> orderLine)
+        public PurchaseOrderBuilder AddOrderLine(string sku, string variantSku, Action<OrderLineBuilder> orderLine = null)
         {
-            if (orderLine == null) throw new ArgumentNullException("orderLine");
-
             var builder = new OrderLineBuilder(sku, variantSku);
-            orderLine(builder);
+
+            if (orderLine != null)
+                orderLine(builder);
 
             return AddOrderLine(builder);
         }
@@ -121,7 +119,7 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
         {
             if (payment == null) throw new ArgumentNullException("payment");
 
-            _purchaseOrder.AddPayment(payment);
+            Instance.AddPayment(payment);
 
             return this;
         }
@@ -133,30 +131,16 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
             if (billingAddress != null)
                 billingAddress(builder);
 
-            _purchaseOrder.BillingAddress = builder;
+            Instance.BillingAddress = builder;
 
             return this;
-        }
-
-        public PurchaseOrderBuilder Change(Action<PurchaseOrder> change)
-        {
-            if (change == null) throw new ArgumentNullException("change");
-
-            change(_purchaseOrder);
-
-            return this;
-        }
-
-        public override PurchaseOrder Build()
-        {
-            return _purchaseOrder;
         }
 
         public PurchaseOrder SetProductCatalogGroup(ProductCatalogGroup productCatalogGroup)
         {
             if (productCatalogGroup == null) throw new ArgumentNullException("productCatalogGroup");
 
-            _purchaseOrder.ProductCatalogGroup = productCatalogGroup;
+            Instance.ProductCatalogGroup = productCatalogGroup;
 
             return this;
         }

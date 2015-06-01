@@ -5,55 +5,52 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
 {
     public class ShipmentBuilder : Builder<Shipment>
     {
-        private readonly Shipment _shipment;
-        private decimal? _shipmentTotal;
+        private decimal? _fixedShipmentTotal;
 
         public ShipmentBuilder(OrderAddressBuilder shipmentAddress = null)
+            : base(new Shipment())
         {
-            _shipment = new Shipment();
-            Address(shipmentAddress);
+            ShipmentAddress(shipmentAddress);
         }
 
-        public ShipmentBuilder Address(Action<OrderAddressBuilder> shipmentAddress = null)
+        public ShipmentBuilder ShipmentAddress(Action<OrderAddressBuilder> shipmentAddress = null)
         {
             var builder = new OrderAddressBuilder();
 
             if (shipmentAddress != null)
                 shipmentAddress(builder);
 
-            return Address(builder);
+            return ShipmentAddress(builder);
         }
 
-        public ShipmentBuilder Address(OrderAddressBuilder shipmentAddress)
+        public ShipmentBuilder ShipmentAddress(OrderAddressBuilder shipmentAddress)
         {
-            _shipment.ShipmentAddress = shipmentAddress;
-
-            return this;
+            return Change(x => x.ShipmentAddress = shipmentAddress);
         }
 
         public ShipmentBuilder Change(Action<Shipment> change)
         {
             if (change == null) throw new ArgumentNullException("change");
 
-            change(_shipment);
+            change(Instance);
 
             return this;
         }
 
-        public ShipmentBuilder SetSpecificShipmentTotal(decimal shipmentTotal)
+        public ShipmentBuilder FixedShipmentTotal(decimal shipmentTotal)
         {
-            _shipmentTotal = shipmentTotal;
+            _fixedShipmentTotal = shipmentTotal;
             return this;
         }
 
         public override Shipment Build()
         {
-            if (!_shipmentTotal.HasValue)
-                _shipmentTotal = _shipment.ShipmentPrice;
+            if (!_fixedShipmentTotal.HasValue)
+                _fixedShipmentTotal = Instance.ShipmentPrice;
 
-            _shipment.ShipmentTotal = _shipmentTotal.Value;
+            Instance.ShipmentTotal = _fixedShipmentTotal.Value;
 
-            return _shipment;
+            return base.Build();
         }
     }
 }

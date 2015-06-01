@@ -5,12 +5,9 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
 {
     public class OrderAddressBuilder : Builder<OrderAddress>
     {
-        private readonly OrderAddress _instance;
-
         public OrderAddressBuilder(CountryBuilder country = null)
+            : base(new OrderAddress())
         {
-            _instance = new OrderAddress();
-
             Country(country);
         }
 
@@ -26,7 +23,7 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
 
         public OrderAddressBuilder Country(CountryBuilder country)
         {
-            _instance.Country = country;
+            Instance.Country = country;
 
             return this;
         }
@@ -35,14 +32,9 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
         {
             if (change == null) throw new ArgumentNullException("change");
 
-            change(_instance);
+            change(Instance);
 
             return this;
-        }
-
-        public override OrderAddress Build()
-        {
-            return _instance;
         }
     }
 }

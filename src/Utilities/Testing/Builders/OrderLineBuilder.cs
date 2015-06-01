@@ -5,48 +5,53 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
 {
     public class OrderLineBuilder : Builder<OrderLine>
     {
-        private readonly OrderLine _orderLine;
         private decimal? _total;
 
         public OrderLineBuilder()
+            : base(new OrderLine { PurchaseOrder = new PurchaseOrder() })
         {
-            _orderLine = new OrderLine
-            {
-                Quantity = 1,
-                PurchaseOrder = new PurchaseOrder()
-            };            
         }
 
         public OrderLineBuilder(string sku, string variantSku = null)
             : this()
         {
-            _orderLine.Sku = sku;
-            _orderLine.VariantSku = variantSku;
+            Instance.Sku = sku;
+            Instance.VariantSku = variantSku;
         }
 
-        public OrderLineBuilder SetSpecificTotal(decimal total)
+        public OrderLineBuilder Total(decimal total)
         {
             _total = total;
-            return this;
-        }
-
-        public OrderLineBuilder Change(Action<OrderLine> change)
-        {
-            if (change == null) throw new ArgumentNullException("change");
-
-            change(_orderLine);
-
             return this;
         }
 
         public override OrderLine Build()
         {
             if (!_total.HasValue)
-                _total = (_orderLine.Price*_orderLine.Quantity);
+                _total = (Instance.Price*Instance.Quantity);
 
-            _orderLine.Total = _total.Value;
+            Instance.Total = _total.Value;
 
-            return _orderLine;
+            return base.Build();
+        }
+
+        public OrderLineBuilder Change(Action<OrderLine> change)
+        {
+            if (change == null) throw new ArgumentNullException("change");
+
+            change(Instance);
+
+            return this;
+        }
+
+        public OrderLineBuilder Quantity(int quantity)
+        {
+            return Change(x => x.Quantity = quantity);
+        }
+
+        public OrderLineBuilder Price(decimal price)
+        {
+            return Change(x => x.Price = price);
         }
     }
 }
