@@ -7,6 +7,10 @@ If you have [NuGet](http://nuget.org) installed, the easiest way to get started 
 
 ### [Install ucommerce-utilities via NuGet](https://google.com).
 
+```
+Install-Package Vertica.UCommerce.Utilities
+```
+
 ## Core Team
 
  - [brianhdk](https://github.com/brianhdk) (Brian Holmgård Kristensen) / [@brianh_dk](https://twitter.com/brianh_dk)
