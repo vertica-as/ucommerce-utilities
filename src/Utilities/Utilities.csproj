@@ -43,6 +43,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Iteration.cs" />
+    <Compile Include="Infrastructure\Extensions\RepeatExtensions.cs" />
+    <Compile Include="Infrastructure\Repeat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Testing\Builder.cs" />
     <Compile Include="Testing\Builders\CountryBuilder.cs" />

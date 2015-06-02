@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using NUnit.Framework;
 using UCommerce.EntitiesV2;
@@ -31,6 +32,32 @@ namespace Vertica.UCommerce.Utilities.Tests.Testing.Builders
 
             Assert.That(order.Payments.Count, Is.EqualTo(1));
             Assert.That(order.Payments.Single().TransactionId, Is.EqualTo("1034967282"));
+        }
+
+        [Test]
+        public void Build_Repeat_With_Iteration_AddOrderLine()
+        {
+            PurchaseOrder purchaseOrder = new PurchaseOrderBuilder()
+                .Repeat(5, i => i.Context.AddOrderLine(String.Format("SKU_{0}", i.Number)));
+
+            OrderLine[] lines = purchaseOrder.OrderLines.ToArray();
+
+            Assert.That(lines.Length, Is.EqualTo(5));
+
+            for (int i = 0; i < lines.Length; i++)
+                Assert.That(lines[i].Sku, Is.EqualTo(String.Format("SKU_{0}", i + 1)));
+        }
+
+
+        [Test]
+        public void Build_Repeat_Without_Iteration_AddOrderLine()
+        {
+            PurchaseOrder purchaseOrder = new PurchaseOrderBuilder()
+                .Repeat(5, x => x.AddOrderLine());
+
+            OrderLine[] lines = purchaseOrder.OrderLines.ToArray();
+
+            Assert.That(lines.Length, Is.EqualTo(5));
         }
 
         [Test]

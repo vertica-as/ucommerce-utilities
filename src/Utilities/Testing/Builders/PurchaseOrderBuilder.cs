@@ -1,5 +1,7 @@
 ﻿using System;
 using UCommerce.EntitiesV2;
+using Vertica.UCommerce.Utilities.Infrastructure;
+using Vertica.UCommerce.Utilities.Infrastructure.Extensions;
 
 namespace Vertica.UCommerce.Utilities.Testing.Builders
 {
@@ -85,7 +87,7 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
             return this;
         }
 
-        public PurchaseOrderBuilder AddOrderLine(Action<OrderLineBuilder> orderLine)
+        public PurchaseOrderBuilder AddOrderLine(Action<OrderLineBuilder> orderLine = null)
         {
             return AddOrderLine(null, null, orderLine);
         }
@@ -136,11 +138,41 @@ namespace Vertica.UCommerce.Utilities.Testing.Builders
             return this;
         }
 
-        public PurchaseOrder SetProductCatalogGroup(ProductCatalogGroup productCatalogGroup)
+        public PurchaseOrderBuilder ProductCatalogGroup(ProductCatalogGroup productCatalogGroup)
         {
             if (productCatalogGroup == null) throw new ArgumentNullException("productCatalogGroup");
 
             Instance.ProductCatalogGroup = productCatalogGroup;
+
+            return this;
+        }
+
+        public PurchaseOrderBuilder Repeat(uint times, Action<PurchaseOrderBuilder> action)
+        {
+            if (action == null) throw new ArgumentNullException("action");
+
+            // ReSharper disable once UnusedVariable
+            foreach (int iteration in times.Repeat())
+                action(this);
+
+            return this;
+        }
+
+        public PurchaseOrderBuilder Repeat(uint times, Action<Iteration<PurchaseOrderBuilder>> action)
+        {
+            if (action == null) throw new ArgumentNullException("action");
+
+            foreach (Iteration<PurchaseOrderBuilder> iteration in times.Repeat(this))
+                action(iteration);
+
+            return this;
+        }
+
+        public PurchaseOrderBuilder Change(Action<PurchaseOrder> change)
+        {
+            if (change == null) throw new ArgumentNullException("change");
+
+            change(Instance);
 
             return this;
         }
