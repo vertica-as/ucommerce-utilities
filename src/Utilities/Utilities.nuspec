@@ -14,9 +14,6 @@
     <description>$description$</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2015</copyright>
-    <tags>Vertica UCommerce</tags>
-    <dependencies>
-      <dependency id="UCommerce.CoreLibraries" version="6.6.6.15140" />
-    </dependencies>
+    <tags>Vertica UCommerce UCommerce.Utilities Utilities</tags>
   </metadata>
 </package>
